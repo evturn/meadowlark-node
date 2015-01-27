@@ -8,16 +8,7 @@ app.set('view engine', 'handlebars');
 app.set('port', process.env.PORT || 3000);
 app.use(express.static(__dirname + '/public'));
 
-var fortunes = [
-	"Eat my food",
-	"Don't eat my food",
-	"Consider eating my food",
-	"Don't even think about my food",
-	"Whenever possible, eat my food"
-];
-
-
-
+var fortune = require('./lib/fortune.js');
 
 app.get('/', function(req, res) {
 	res.render('home');
