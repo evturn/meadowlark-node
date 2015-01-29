@@ -72,7 +72,7 @@ function getWeatherData(){
 				temp: '55.0 F (12.8 C)',
 			},
 		],
-	},
+	};
 }
 
 app.use(function(req, res, next) {
