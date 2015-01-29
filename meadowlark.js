@@ -35,16 +35,7 @@ app.get('/tours/request-group-rate', function(req, res) {
 				res.render('tours/request-group-rate');
 });
 
-app.get('/', function(req, res) {
-	res.render('home');
-});
 
-app.get('/about', function(req, res) {
-				res.render('about', {
-								fortune: fortune.getFortune(),
-								pageTestScript: '/qa/tests-about.js'
-				});
-});
 
 
 function getWeatherData(){ 
@@ -81,6 +72,16 @@ app.use(function(req, res, next) {
 	next();
 });
 
+app.get('/', function(req, res) {
+	res.render('home');
+});
+
+app.get('/about', function(req, res) {
+				res.render('about', {
+								fortune: fortune.getFortune(),
+								pageTestScript: '/qa/tests-about.js'
+				});
+});
 app.use(function(req, res) {
 	res.status(404);
 	res.render('404');
@@ -93,6 +94,6 @@ app.use(function(err, req, res, next) {
 });
 
 app.listen(app.get('port'), function() {
-	console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate');
+	console.log('Express listening on http://localhost:' + app.get('port'));
 });
 
