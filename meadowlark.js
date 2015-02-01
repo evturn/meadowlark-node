@@ -34,7 +34,7 @@ app.post('/process', function(req, res){
 	console.log('Email (from visible form field): ' + req.body.email);
 	res.redirect(303, '/thank-you');
 });
-
+iTunes says have 2k photos but iPhone correctly shows 0. iCloud Photo Stream doesn't count against iCloud Storage but keeps them in a place called iCloud Storage
 app.get('/tours/hood-river', function(req, res) {
 				res.render('tours/hood-river');
 });
@@ -46,9 +46,6 @@ app.get('/tours/oregon-coast', function(req, res) {
 app.get('/tours/request-group-rate', function(req, res) {
 				res.render('tours/request-group-rate');
 });
-
-
-
 
 function getWeatherData(){ 
 	return {
