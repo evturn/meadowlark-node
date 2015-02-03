@@ -1,6 +1,7 @@
 var express 	 = require('express');
 var fortune 	 = require('./lib/fortune.js');
 var formidable = require('formidable');
+var jqupload = require('jquery-file-upload-middleware');
 
 var app = express();
 
@@ -23,6 +24,20 @@ app.use(function(req, res, next) {
 	res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1';
 	next();
 });
+
+app.use('/upload', function(req, res, next) {
+	var now = Date.now();
+	jqupload.fileHandler({
+		uploadDir: function() {
+			return __dirname + '/public/uploads/' + now;
+		},
+		uploadUrl: function(){
+			return '/uploads/' + now;
+		},
+  })
+	(req, res, next);
+});
+
 
 app.get('/contest/vacation-photo',function(req,res) {
 	var now = new Date();
