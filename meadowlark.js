@@ -24,10 +24,10 @@ app.use(function(req, res, next) {
 	next();
 });
 
-app.get('/.contest/vacation-photo', function(req, res) {
+app.get('/contest/vacation-photo', function(req, res) {
 	var now = new Date();
 	res.render('contest/vacation-photo', {
-		year: now.getFullYear(), month: now.getMont()
+		year: now.getFullYear(), month: now.getMonth()
 	});
 });
 
