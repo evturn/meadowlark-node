@@ -28,6 +28,12 @@ app.use(function(req, res, next) {
 	next();
 });
 
+app.use(function(req, res, next){
+	res.locals.flash = req.session.flash;
+	delete req.session.flash;
+	next();
+});
+
 app.use('/upload', function(req, res, next) {
 	var now = Date.now();
 	jqupload.fileHandler({
