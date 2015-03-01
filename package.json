@@ -1,12 +1,16 @@
 {
   "name": "meadowlark",
   "version": "1.0.0",
-  "description": "",
+  "description": "Meadowlark is a travel service for people visiting Oregon (I know).",
   "main": "meadowlark.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Evan Turner",
+  "repository" : { 
+    "type" : "git", 
+    "url" : "http://github.com/evturn/meadowlark-node.git"
+  },
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.10.2",
