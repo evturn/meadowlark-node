@@ -1,8 +1,8 @@
 var express 	 	= require('express');
 var app 				= express();
+var logger			= require('morgan');
 var connect			= require('connect');
 var formidable 	= require('formidable');
-var nodemailer  = require('nodemailer');
 var jqupload 		= require('jquery-file-upload-middleware');
 var fortune 	 	= require('./lib/fortune.js');
 var credentials = require('./credentials');
@@ -17,14 +17,6 @@ var handlebars  = require('express3-handlebars').create({
     }
 });
 
-var mailTransport = nodemailer.createTransport('SMTP', {
-	service: 'Gmail',
-	auth: {
-		user: credentials.gmail.user,
-		pass: credentials.gmail.password
-	}
-});
-
 // Handlebars
 app.engine('handlebars', handlebars.engine);
 
@@ -33,6 +25,9 @@ app.set('view engine', 'handlebars');
 
 // Port
 app.set('port', process.env.PORT || 3000);
+
+// Logger
+app.use(logger('dev'));
 
 // Static
 app.use(express.static(__dirname + '/public'));
