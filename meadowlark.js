@@ -1,52 +1,56 @@
 var express 	 	= require('express');
+var app 				= express();
 var fortune 	 	= require('./lib/fortune.js');
 var formidable 	= require('formidable');
-var jqupload 	 	= require('jquery-file-upload-middleware');
 var credentials = require('./credentials');
-
-var app = express();
-
-var handlebars = require('express3-handlebars').create({
+var handlebars  = require('express3-handlebars').create({
 	  defaultLayout:'main',
     helpers: {
       section: function(name, options){
-        if(!this._sections) this._sections = {};
-        this._sections[name] = options.fn(this);
-        return null;
-       	}
+        if (!this._sections) this._sections = {};
+	        this._sections[name] = options.fn(this);
+	        return null;
+      }
     }
 });
+
+// Handlebars
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
+
+// Port
 app.set('port', process.env.PORT || 3000);
+
+// Static
 app.use(express.static(__dirname + '/public'));
+
+// bodyParser
 app.use(require('body-parser')());
+
+// Sessions
 app.use(require('cookie-parser')(credentials.cookieSecret));
 app.use(require('express-session')());
+
+// Mocha
 app.use(function(req, res, next) {
 	res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1';
 	next();
 });
 
+
+// Weather
+app.use(function(req, res, next) {
+	if (!res.locals.partials) res.locals.partials = {}; 
+		res.locals.partials.weather = getWeatherData(); 
+		next();
+});
+
+// Flash
 app.use(function(req, res, next){
 	res.locals.flash = req.session.flash;
 	delete req.session.flash;
 	next();
 });
-
-app.use('/upload', function(req, res, next) {
-	var now = Date.now();
-	jqupload.fileHandler({
-		uploadDir: function() {
-			return __dirname + '/public/uploads/' + now;
-		},
-		uploadUrl: function(){
-			return '/uploads/' + now;
-		},
-  })
-	(req, res, next);
-});
-
 
 app.get('/contest/vacation-photo',function(req,res) {
 	var now = new Date();
@@ -120,11 +124,7 @@ function getWeatherData(){
 	};
 }
 
-app.use(function(req, res, next) {
-	if(!res.locals.partials) res.locals.partials = {}; 
-	res.locals.partials.weather = getWeatherData(); 
-	next();
-});
+
 
 app.get('/nursery-rhyme', function(req, res){ res.render('nursery-rhyme');
 });
