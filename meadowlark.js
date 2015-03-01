@@ -1,9 +1,10 @@
 var express 	 	= require('express');
 var app 				= express();
-var fortune 	 	= require('./lib/fortune.js');
+var connect			= require('connect');
 var formidable 	= require('formidable');
-var credentials = require('./credentials');
 var jqupload 		= require('jquery-file-upload-middleware');
+var fortune 	 	= require('./lib/fortune.js');
+var credentials = require('./credentials');
 var handlebars  = require('express3-handlebars').create({
 	  defaultLayout:'main',
     helpers: {
