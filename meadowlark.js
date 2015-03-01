@@ -17,6 +17,8 @@ var handlebars  = require('express3-handlebars').create({
 
 // Handlebars
 app.engine('handlebars', handlebars.engine);
+
+// Views
 app.set('view engine', 'handlebars');
 
 // Port
@@ -30,6 +32,8 @@ app.use(require('body-parser')());
 
 // Sessions
 app.use(require('cookie-parser')(credentials.cookieSecret));
+
+// Session ID
 app.use(require('express-session')());
 
 // Mocha
