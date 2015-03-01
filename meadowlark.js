@@ -3,6 +3,7 @@ var app 				= express();
 var fortune 	 	= require('./lib/fortune.js');
 var formidable 	= require('formidable');
 var credentials = require('./credentials');
+var jqupload 		= require('jquery-file-upload-middleware');
 var handlebars  = require('express3-handlebars').create({
 	  defaultLayout:'main',
     helpers: {
@@ -37,7 +38,6 @@ app.use(function(req, res, next) {
 	next();
 });
 
-
 // Weather
 app.use(function(req, res, next) {
 	if (!res.locals.partials) res.locals.partials = {}; 
@@ -50,6 +50,18 @@ app.use(function(req, res, next){
 	res.locals.flash = req.session.flash;
 	delete req.session.flash;
 	next();
+});
+
+// Uploads
+app.use('/upload', function(req, res, next) {
+	var now = Date.now();
+	jqupload.fileHandler({
+		uploadDir: function(){
+			return __dirname + '/public/uploads/' + now;
+		},
+		uploadUrl: function(){
+			return '/uploads/' + now; },
+		})(req, res, next);
 });
 
 app.get('/contest/vacation-photo',function(req,res) {
@@ -71,7 +83,6 @@ app.post('/contest/vacation-photo/:year/:month', function(req, res) {
   });
 });
 
-
 app.get('/newsletter', function(req, res) {
 	res.render('newsletter', {csrf: 'CSRF token goes here'});
 });
@@ -84,16 +95,20 @@ app.post('/process', function(req, res){
   }
 });
 
+app.get('/thank-you', function(req, res) {
+	res.render('thank-you');
+});
+
 app.get('/tours/hood-river', function(req, res) {
-				res.render('tours/hood-river');
+	res.render('tours/hood-river');
 });
 
 app.get('/tours/oregon-coast', function(req, res) {
-				res.render('tours/oregon-coast');
+	res.render('tours/oregon-coast');
 });
 
 app.get('/tours/request-group-rate', function(req, res) {
-				res.render('tours/request-group-rate');
+	res.render('tours/request-group-rate');
 });
 
 function getWeatherData(){ 
