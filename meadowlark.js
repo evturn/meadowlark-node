@@ -2,6 +2,7 @@ var express 	 	= require('express');
 var app 				= express();
 var connect			= require('connect');
 var formidable 	= require('formidable');
+var nodemailer  = require('nodemailer');
 var jqupload 		= require('jquery-file-upload-middleware');
 var fortune 	 	= require('./lib/fortune.js');
 var credentials = require('./credentials');
