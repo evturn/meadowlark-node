@@ -17,6 +17,14 @@ var handlebars  = require('express3-handlebars').create({
     }
 });
 
+var mailTransport = nodemailer.createTransport('SMTP', {
+	service: 'Gmail',
+	auth: {
+		user: credentials.gmail.user,
+		pass: credentials.gmail.password
+	}
+});
+
 // Handlebars
 app.engine('handlebars', handlebars.engine);
 
