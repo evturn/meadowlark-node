@@ -1,5 +1,6 @@
 var express 	 	= require('express');
 var app 				= express();
+var connect			= require('connect');
 var logger			= require('morgan');
 var connect			= require('connect');
 var formidable 	= require('formidable');
